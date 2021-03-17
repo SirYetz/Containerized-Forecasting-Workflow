@@ -54,12 +54,12 @@ class InputDataSetGFS(InputDataSet):
     def __init__(self, date, hour, path, **args):
         InputDataSet.__init__(self, date, hour, path, **args)
         self.type = 'GFS'
-        self.intervalseconds = 10800
+        self.intervalseconds = 21600
         self.path = path+'/GFS'
         self.name = self.get_filename()
         self.name_prepared = self.get_filename()
-        self.server_url = ['ftp://nomads.ncdc.noaa.gov']
-        self.server_path = ['GFS/Grid4/'+str(self.date.year)+str(self.date.month).zfill(2)+\
+        self.server_url = ['https://www.ncei.noaa.gov/']
+        self.server_path = ['data/global-forecast-system/access/historical/analysis/'+str(self.date.year)+str(self.date.month).zfill(2)+\
                            '/'+str(self.date.year)+str(self.date.month).zfill(2)+\
                            str(self.date.day).zfill(2)]
 
@@ -70,7 +70,7 @@ class InputDataSetGFS(InputDataSet):
         '''
         Generate a filename to download for this dataset for the time given.
         '''
-        return 'gfs_4_'+str(self.date.year)+str(self.date.month).zfill(2)+\
+        return 'gfsanl_4_'+str(self.date.year)+str(self.date.month).zfill(2)+\
                 str(self.date.day).zfill(2)+'_'+str(self.date.hour).zfill(2)+\
                 '00_'+str(self.hour).zfill(3)+'.grb2'
 
