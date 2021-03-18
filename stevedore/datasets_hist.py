@@ -54,6 +54,7 @@ class InputDataSetGFS(InputDataSet):
     def __init__(self, date, hour, path, **args):
         InputDataSet.__init__(self, date, hour, path, **args)
         self.type = 'GFS'
+        #21600 represents the 6 hrly grib files as opposed to 3 hrs in the original version
         self.intervalseconds = 21600
         self.path = path+'/GFS'
         self.name = self.get_filename()
@@ -70,9 +71,14 @@ class InputDataSetGFS(InputDataSet):
         '''
         Generate a filename to download for this dataset for the time given.
         '''
+        #return 'gfsanl_4_'+str(self.date.year)+str(self.date.month).zfill(2)+\
+        #        str(self.date.day).zfill(2)+'_'+str(self.date.hour).zfill(2)+\
+        #        '00_'+str(self.hour).zfill(3)+'.grb2'
+
+        #6 hrly grib file format
         return 'gfsanl_4_'+str(self.date.year)+str(self.date.month).zfill(2)+\
-                str(self.date.day).zfill(2)+'_'+str(self.date.hour).zfill(2)+\
-                '00_'+str(self.hour).zfill(3)+'.grb2'
+                str(self.date.day).zfill(2)+'_'+str(self.hour).zfill(2)+\
+                '00_000'+'.grb2'
 
 
 class InputDataSetGFSp25(InputDataSet):
