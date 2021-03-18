@@ -48,14 +48,22 @@ import argparse
 from datetime import datetime, timedelta as td
 import stevedore
 from stevedore.sanity import is_sane
+from stevedore.gui import gui
 
-def main(argv):
+#gui components
+import Tkinter as tk
+import tkFont
+
+def get_parser():
     '''
     Main - run a simulation
     '''
 
     try:
         parser = argparse.ArgumentParser()
+        
+        parser.add_argument('--gui', help='Use GUI to enter parameters',action="store_true")
+
         parser.add_argument('--start', help="Start date and time in format"
                                             " yyyy-mm-dd")
 
@@ -123,7 +131,7 @@ def main(argv):
 
         parser.add_argument('--history_interval', type=int, help='history output file interval in minutes',
                             default=[60], nargs='*', dest='history_interval')
-
+        
         #Arguments for physics options.
         #For options see:
         #http://www2.mmm.ucar.edu/wrf/users/docs/user_guide_V3/users_guide_chap5.htm
@@ -231,11 +239,14 @@ def main(argv):
                             default=[], nargs='+',
                             dest='inputData')
 
-        args = parser.parse_args()
+        return parser
+        
 
     except Exception, general_exception:
         print 'Exception '+ str(general_exception)
 
+
+def command_line(args):
     # create date objects
     hour_start = int(args.hour)
     #get the start date expecting it to be in the format YYYY-MM-DD
@@ -312,8 +323,14 @@ def main(argv):
 
 if __name__ == '__main__':
     try:
-        main(sys.argv[1:])
-        sys.exit(0)
+    
+        parser = get_parser()       # Start the command-line argument parsing
+        args = parser.parse_args()  # Read the command-line arguments
+
+        if args.gui:              # If there is an argument,
+            gui()      # run the command-line version
+        else:
+            command_line(args)                   # otherwise run the GUI version
 
     except KeyboardInterrupt, kb_exception: # Ctrl-C
         raise kb_exception
