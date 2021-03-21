@@ -50,7 +50,7 @@ class TestUM(unittest.TestCase):
         testds.alt_server_url = None
         testds.is_rda = [False]
         testds.server_path = ['']
-        testds.server_url = ['ftp://nomads.ncdc.noaa.gov']
+        testds.server_url = ['https://www.ncdc.noaa.gov']
         testds.download()
 
         #if exists /tmp/robots.txt then pass.
@@ -64,29 +64,29 @@ class TestUM(unittest.TestCase):
     def test_download_grib(self):
         """Test download from a single url (from FTP)
         This file is a grib file.
-        using: ftp://nomads.ncdc.noaa.gov/GFS/Grid3/201706/20170627/gfs_3_20170627_0000_000.grb2
+        using: ftp://nomads.ncdc.noaa.gov/GFS/Grid3/201706/20170627/gfsanl_3_20170627_0000_000.grb2
 
         """
         # if the file alread exists delete it.
         ret = False
-        if os.path.isfile('/tmp/gfs_3_20170627_0000_000.grb2'):
-            os.remove('/tmp/gfs_3_20170627_0000_000.grb2')
+        if os.path.isfile('/tmp/gfsanl_3_20170627_0000_000.grb2'):
+            os.remove('/tmp/gfsanl_3_20170627_0000_000.grb2')
 
         date_test = datetime.strptime('2017-01-01:12', '%Y-%m-%d:%H')
         #date, hour, path
         testds = InputDataSet(date_test, 0, '/tmp')
-        testds.name ='gfs_3_20170627_0000_000.grb2'
+        testds.name ='gfsanl_3_20170627_0000_000.grb2'
         testds.path = '/tmp'
         testds.name_prepared = 'NO-NAME'
         testds.alt_server_url = None
         testds.is_rda = [False]
-        testds.server_path = ['GFS/Grid3/201706/20170627']
-        testds.server_url = ['ftp://nomads.ncdc.noaa.gov']
+        testds.server_path = ['data/global-forecast-system/access/historical/analysis/201706/20170627/']
+        testds.server_url = ['https://www.ncei.noaa.gov/']
         testds.download()
 
         #if exists /tmp/robots.txt then pass.
-        if os.path.isfile('/tmp/gfs_3_20170627_0000_000.grb2') and os.path.getsize('/tmp/gfs_3_20170627_0000_000.grb2') > 0:
-            os.remove('/tmp/gfs_3_20170627_0000_000.grb2')
+        if os.path.isfile('/tmp/gfsanl_3_20170627_0000_000.grb2') and os.path.getsize('/tmp/gfsanl_3_20170627_0000_000.grb2') > 0:
+            os.remove('/tmp/gfsanl_3_20170627_0000_000.grb2')
             ret = True
         self.assertEqual( ret, True)
 
@@ -95,28 +95,28 @@ class TestUM(unittest.TestCase):
         """Test download from the second url
         The first url will go to nowhere
         This file is a grib file.
-        using: ftp://nomads.ncdc.noaa.gov/GFS/Grid3/201706/20170627/gfs_3_20170627_0000_000.grb2
+        using: ftp://nomads.ncdc.noaa.gov/GFS/Grid3/201706/20170627/gfsanl_3_20170627_0000_000.grb2
         """
         # if the file alread exists delete it.
         ret = False
-        if os.path.isfile('/tmp/gfs_3_20170627_0000_000.grb2'):
-            os.remove('/tmp/gfs_3_20170627_0000_000.grb2')
+        if os.path.isfile('/tmp/gfsanl_3_20170627_0000_000.grb2'):
+            os.remove('/tmp/gfsanl_3_20170627_0000_000.grb2')
 
         date_test = datetime.strptime('2017-01-01:12', '%Y-%m-%d:%H')
         #date, hour, path
         testds = InputDataSet(date_test, 0, '/tmp')
-        testds.name ='gfs_3_20170627_0000_000.grb2'
+        testds.name ='gfsanl_3_20170627_0000_000.grb2'
         testds.path = '/tmp'
         testds.name_prepared = 'NO-NAME'
         testds.alt_server_url = None
         testds.is_rda = [False, False]
-        testds.server_path = ['','GFS/Grid3/201706/20170627']
-        testds.server_url = ['ftp://www.fakeaddress812fzp9.com/','ftp://nomads.ncdc.noaa.gov']
+        testds.server_path = ['','data/global-forecast-system/access/historical/analysis/201706/20170627/']
+        testds.server_url = ['ftp://www.fakeaddress812fzp9.com/','https://www.ncei.noaa.gov/']
         testds.download()
 
         #if exists /tmp/robots.txt then pass.
-        if os.path.isfile('/tmp/gfs_3_20170627_0000_000.grb2') and os.path.getsize('/tmp/gfs_3_20170627_0000_000.grb2') > 0:
-            os.remove('/tmp/gfs_3_20170627_0000_000.grb2')
+        if os.path.isfile('/tmp/gfsanl_3_20170627_0000_000.grb2') and os.path.getsize('/tmp/gfsanl_3_20170627_0000_000.grb2') > 0:
+            os.remove('/tmp/gfsanl_3_20170627_0000_000.grb2')
             ret = True
         self.assertEqual( ret, True)
 
@@ -125,13 +125,13 @@ class TestUM(unittest.TestCase):
         """ Test the setting of an alt server.
         Remember the server path is set to 'pub/'+self.type
         the server_url = self.alt_server_url
-        using http://ftp.geogratis.gc.ca/pub/nrcan_rncan/vector/canvec/doc/Read_me.txt
+        using https://ftp.maps.canada.ca/pub/nrcan_rncan/vector/canvec/doc/CanVec_en.pdf
         """
 
-        # if exists /tmp/robots.txt delete it.
+        
         ret = False
-        if os.path.isfile('/tmp/Read_me.txt'):
-            os.remove('/tmp/Read_me.txt')
+        if os.path.isfile('/tmp/CanVec_en.pdf'):
+            os.remove('/tmp/CanVec_en.pdf')
 
 
         date_test = datetime.strptime('2017-01-01:12', '%Y-%m-%d:%H')
@@ -139,18 +139,17 @@ class TestUM(unittest.TestCase):
         #date, hour, path
         testds = InputDataSet(date_test, 0, '/tmp')
         testds.type ='nrcan_rncan/vector/canvec/doc'
-        testds.name = 'Read_me.txt'
+        testds.name = 'CanVec_en.pdf'
         testds.path = '/tmp'
         testds.name_prepared = 'NO-NAME'
-        testds.alt_server_url = 'http://ftp.geogratis.gc.ca'
+        testds.alt_server_url = 'https://ftp.maps.canada.ca'
         testds.is_rda = []
         testds.server_path = []
         testds.server_url = []
         testds.download()
 
-        #if exists /tmp/robots.txt then pass.
-        if os.path.isfile('/tmp/Read_me.txt') and os.path.getsize('/tmp/Read_me.txt') > 0:
-            #os.remove('/tmp/robots.txt')
+        if os.path.isfile('/tmp/CanVec_en.pdf') and os.path.getsize('/tmp/CanVec_en.pdf') > 0:
+            os.remove('/tmp/CanVec_en.pdf')
             ret = True
 
         self.assertEqual( ret, True)
@@ -275,7 +274,7 @@ class TestUM(unittest.TestCase):
         testds = InputDataSetGFS(date_test, 0, '/tmp')
         #looking for: ftp://nomads.ncdc.noaa.gov/GFS/Grid4/201703/20170301/gfs_4_20170301_1200_000.grb2
         #
-        expected_filename = "gfs_4_20170301_1200_000.grb2"
+        expected_filename = "gfsanl_4_20170301_0000_000.grb2"
         gen_filename = testds.get_filename()
 
         self.assertEqual( expected_filename, gen_filename)
@@ -389,11 +388,11 @@ class TestUM(unittest.TestCase):
         self.assertEqual( expected_filename, gen_filename)
 
     def test_InputDataSetSSTSPORT_get_filename(self):
-        date_test = datetime.strptime('2017-03-01:12', '%Y-%m-%d:%H')
+        date_test = datetime.strptime('2021-03-17:12', '%Y-%m-%d:%H')
         #date, hour, path
         testds = InputDataSetSSTSPORT(date_test, 0, '/tmp')
-        #looking for: http://soostrc.comet.ucar.edu/data/grib/sst/17030106.sportsst_nhemis.grb2 (only 06 or 18)
-        expected_filename = "17030106.sportsst_nhemis.grb2.gz"
+        #looking for: http://soostrc.comet.ucar.edu/data/grib/sst/21031718.sportsst_nhemis.grb2 (only 06 or 18)
+        expected_filename = "21031618.sportsst_nhemis.grb2"
         gen_filename = testds.get_filename()
 
         self.assertEqual( expected_filename, gen_filename)

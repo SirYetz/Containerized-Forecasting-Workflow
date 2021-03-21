@@ -29,7 +29,10 @@ ADD stevedore /opt/deepthunder/stevedore/
 ADD run_simulation.py /opt/deepthunder/run_simulation.py
 
 #Add MPICH to the PATH
-env PATH /usr/lib64/mpich/bin:$PATH
+ENV PATH /usr/lib64/mpich/bin:$PATH
 
 #if it exists copy over precompiled wrf.exe with its accompanying features
 ADD featurePack/* /opt/deepthunder/externalDependencies/WRF/
+
+#Added this after having problems verifying certificates in unit testing
+CMD /usr/bin/echo "check_certificate = off" >> ~/.wgetrc
