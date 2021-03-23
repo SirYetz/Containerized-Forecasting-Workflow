@@ -21,7 +21,7 @@ pip install pytz; \
 cd /opt/deepthunder && /bin/bash loadenv.sh && /bin/bash build.sh; \
 yum remove -y jasper-devel cairo-devel grib_api-devel python-devel curl-devel expat-devel zlib-devel gcc-gfortran byacc yasm libXext-devel mpich-devel libpng-devel libtool automake autoconf flex flex-devel bzip2-devel libcurl-devel sqlite-devel python-setuptools gcc-c++ hdf5-devel netcdf-fortran-devel nco-devel java libstdc++-devel glibc-devel libxcb-devel libquadmath-devel libXfixes-devel libXdamage-devel libdrm-devel glib2-devel libffi-devel xorg-x11-proto-devel libXau-devel pixman-devel libjpeg-turbo-devel libX11-devel libXrender-devel ;\
 yum clean all ;\
-yum -y install netcdf4-python ;\
+yum -y install netcdf4-python ncview;\
 rm -rf /usr/share/ncarg/data/cdf
 
 ADD PreProcessing /opt/deepthunder/PreProcessing/

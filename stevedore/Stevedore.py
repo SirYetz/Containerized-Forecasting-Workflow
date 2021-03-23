@@ -1292,3 +1292,17 @@ class Stevedore(object):
 
         #Return the number of soil levels as an int.
         return int(soil_levels)
+
+    
+    @staticmethod
+    def execute_ncview(directory_nc, file):
+        """
+            Starting ncview
+
+            Dummy function for now which just loads the test file in the data dir
+        """
+        # record start of execution of wrf.exe
+        os.chdir(directory_nc)
+        logging.info('_execute_ncview: starting ncview')
+        process = subprocess.Popen(['ncview',str(file)])
+        process.wait()

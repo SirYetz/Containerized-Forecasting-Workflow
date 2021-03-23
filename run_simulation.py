@@ -292,7 +292,7 @@ def main(argv):
                                        tsfile=args.tslistfile,
                                        history_interval=args.history_interval)
 
-
+        
         # check if the object is sane.
         #Check for sanity
         is_sane(stevedore_instance)
@@ -306,6 +306,12 @@ def main(argv):
 
         # run WRF
         stevedore_instance.run_WRF()
+        
+        #To perform basic testing of loading a NetCDF file into ncview using python 
+        # Uncomment line below
+        # Comment out preceding stevedore_instance function calls after the constructor
+        # Ensure you have a NetCDF file in the specified location to test 
+        #stevedore_instance.execute_ncview("/opt/deepthunder/data","test.nc")
 
 
     print 'Stevedore has finished'
