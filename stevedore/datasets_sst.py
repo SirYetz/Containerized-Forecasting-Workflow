@@ -339,7 +339,7 @@ class InputDataSetSSTSPORT(InputDataSet):
         self.server_url = ['ftp://geo.msfc.nasa.gov', 'http://soostrc.comet.ucar.edu']
         self.server_path = ['SPoRT/sst/northHemis/grib2', 'data/grib/sst']
         self.ungrib_prefix = 'SSTSPORT'
-        self.server_pos = 0
+        self.server_pos = 1
 
     def get_filename(self):
         '''
@@ -348,13 +348,13 @@ class InputDataSetSSTSPORT(InputDataSet):
         sst_date = self.get_sst_date()
 
         if self.server_pos == 0:
-            sst_date_string = str(sst_date.year)+str(sst_date.month).zfill(2)+\
-                              str(sst_date.day).zfill(2)+'_'+str(sst_date.hour).zfill(2)+\
-                              '00_sport_nhemis_sstcomp.grb2.gz'
+            sst_date_string = str(sst_date.year)[2:4]+str(sst_date.month).zfill(2)+\
+                              str(sst_date.day).zfill(2)+str(sst_date.hour).zfill(2)+\
+                              '.sportsst_nhemis.grb2.gz'
         else:
-            sst_date_string = str(sst_date.year)+str(sst_date.month).zfill(2)+\
-                              str(sst_date.day).zfill(2)+'_'+str(sst_date.hour).zfill(2)+\
-                              '00_sport_nhemis_sstcomp.grb2'
+            sst_date_string = str(sst_date.year)[2:4]+str(sst_date.month).zfill(2)+\
+                              str(sst_date.day).zfill(2)+str(sst_date.hour).zfill(2)+\
+                              '.sportsst_nhemis.grb2'
 
         return sst_date_string
 
