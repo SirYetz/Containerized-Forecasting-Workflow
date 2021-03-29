@@ -44,7 +44,7 @@ def link_to(src, dst):
     try:
         #Try to create the symlink
         os.symlink(src, dst)
-    except OSError, os_err:
+    except OSError as os_err:
         #If the symlink errors then record that error
         logging.error("Could not make link to "+str(dst)+ " from "+ str(src) +
                       " reason: "+ str(os_err))

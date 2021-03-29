@@ -44,12 +44,12 @@ import shutil
 import subprocess
 import pytz
 from netCDF4 import Dataset
-from inputdataset import InputDataSet
-from datasets_aux import *
-from datasets_fcst import *
-from datasets_hist import *
-from datasets_sst import *
-import util
+from .inputdataset import InputDataSet
+from .datasets_aux import *
+from .datasets_fcst import *
+from .datasets_hist import *
+from .datasets_sst import *
+from . import util
 
 class Stevedore(object):
     '''
@@ -84,9 +84,9 @@ class Stevedore(object):
         Constructor
         '''
         #IBM-NOTICE
-        self.notice = "IBM Containerized Forecasting Workflow \n Licensed Materials - Property of IBM \n  Copyright IBM Corp. 2017 ALL RIGHTS RESERVED \n "
+        self.notice = "IBM Containerized Forecasting Workflow \n Licensed Materials - Property of IBM \n Copyright IBM Corp. 2017 ALL RIGHTS RESERVED \n "
 
-        print self.notice
+        print(self.notice)
         #End IBM Notice.
 
 
@@ -111,7 +111,7 @@ class Stevedore(object):
         self.numberCores = ncores
 
         #Define a list that will contain the domains to be processed
-        self.domains = range(1, ndomains+1)
+        self.domains = list(range(1, ndomains+1))
 
         #Specify the number of domains in this run
         self.maxdom = ndomains
@@ -143,7 +143,7 @@ class Stevedore(object):
 
         #Define a list that will contain the domains not just those to be processed
         # in descending order
-        self.idomains = range(self.MAXINSTRUMENTEDDOMAINS, 0, -1)
+        self.idomains = list(range(self.MAXINSTRUMENTEDDOMAINS, 0, -1))
 
         #Physics options
         #Micro Physics vairables
@@ -210,12 +210,12 @@ class Stevedore(object):
         #After adding both initialConditions and boundaryConditions
         #if inputData is still of zero size then add DEFAULT_DS
         if not inputData:
-            print 'Added default dataset '+ str(self.DEFAULT_DS)
+            print('Added default dataset '+ str(self.DEFAULT_DS))
             inputData.append(self.DEFAULT_DS)
 
         #Adds all datasets to the dictionary inputDataSets
         for ds in inputData:
-            print 'Add dataset '+ str(ds)
+            print('Add dataset '+ str(ds))
             self.inputDataSets[str(ds)] = None
 
         #Store all input files as inputDataSet
@@ -364,7 +364,7 @@ class Stevedore(object):
                 idsMethodName = eval('InputDataSet'+str(ids))
                 logging.debug('check_input_data: Download input data. with '+ str(idsMethodName))
                 inputDataSet = idsMethodName(self.datetimeStartUTC, 0, self.directory_root_inputDataSets, is_analysis=self.is_analysis)
-                intervalhours = inputDataSet.intervalseconds/self.SEC_IN_HOUR
+                intervalhours = inputDataSet.intervalseconds//self.SEC_IN_HOUR
 
                 #Set the intervalseconds to the lowest of the datasets.
                 if inputDataSet.intervalseconds > self.maxintervalseconds:
@@ -383,7 +383,7 @@ class Stevedore(object):
                 self.inputDataSets[ids] = (inputDataSet)
 
                 #For hours in the simulation length + 1 / the interval between files in hours.
-                for hour_steps in range((self.forecastLength/intervalhours)+1):
+                for hour_steps in range((self.forecastLength//intervalhours)+1):
                     #Create a input dataset object
                     #note we pass the hour steps rather than the new date as this depends on the dataset if we increment the date etc.
                     inputDataSet = idsMethodName(self.datetimeStartUTC, hour_steps*intervalhours,
@@ -533,9 +533,9 @@ class Stevedore(object):
 
         #Go through the datasets and find the one with the smallest interval
         self.WPSintervalseconds = None
-        for ids in self.inputDataSets.iterkeys():
+        for ids in self.inputDataSets.keys():
             idso = self.inputDataSets[ids]
-            if idso.intervalseconds < self.WPSintervalseconds or self.WPSintervalseconds is None:
+            if self.WPSintervalseconds is None or idso.intervalseconds < self.WPSintervalseconds:
                 self.WPSintervalseconds = idso.intervalseconds
 
         #Replace the place-holders in the namelist file with the properties of this DeepThunder object
@@ -761,7 +761,7 @@ class Stevedore(object):
         dictUngrib = []
 
         #For each input dataset file of this label
-        for ids in self.inputDataSets.iterkeys():
+        for ids in self.inputDataSets.keys():
             idso = self.inputDataSets[ids]
             #Call the prepare function of objects of class InputDataSet
             if idso.ungrib:
@@ -832,7 +832,7 @@ class Stevedore(object):
         fg_name = []
         constant = False
 
-        for ids, idso in dsUngrib.iteritems():
+        for ids, idso in dsUngrib.items():
 
             if idso.ungrib_prefix is not None:
                 if idso.ungrib_prefix not in fg_name and not idso.is_sst:
@@ -1150,7 +1150,7 @@ class Stevedore(object):
         #Setup SST_UPDATE
         #Two flags need changing auxinput4_interval to the minutes between updates and sst_update to 1.
         #For SST Updates to work aux input 4 files io_form_auxinput4 and auxinput4_inname must be set.
-        DT_AUX4_INT_DT = (self.sstintervalseconds/60)
+        DT_AUX4_INT_DT = int(self.sstintervalseconds//60)
 
         #If the reanalysis flag is on turn SST updates on.
         if self.is_analysis:

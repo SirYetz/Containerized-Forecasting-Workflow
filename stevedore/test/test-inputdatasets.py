@@ -176,7 +176,7 @@ class TestUM(unittest.TestCase):
          try:
              open('/tmp/testfile', 'a').close()
          except:
-             print "Could not open file in append mode ERROR."
+             print("Could not open file in append mode ERROR.")
 
          #date, hour, path
          testds = InputDataSet(date_test, 0, '/tmp')
@@ -186,8 +186,8 @@ class TestUM(unittest.TestCase):
 
          ret = testds.exists()
 
-         print('File size is '+ str(os.path.getsize('/tmp/testfile')))
-         print('Value of return is '+ str(ret))
+         print(('File size is '+ str(os.path.getsize('/tmp/testfile'))))
+         print(('Value of return is '+ str(ret)))
 
          self.assertEqual(ret, False)
 
@@ -215,7 +215,7 @@ class TestUM(unittest.TestCase):
               f.write('random text')
               f.close()
          except:
-             print "Could not open file in append mode ERROR."
+             print("Could not open file in append mode ERROR.")
 
          #date, hour, path
          testds = InputDataSet(date_test, 0, '/tmp')

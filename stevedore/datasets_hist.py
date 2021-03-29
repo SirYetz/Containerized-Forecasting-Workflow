@@ -43,7 +43,7 @@ from datetime import datetime, timedelta
 import subprocess
 import shutil
 import glob
-from inputdataset import *
+from .inputdataset import *
 
 class InputDataSetGFS(InputDataSet):
     '''
@@ -209,7 +209,7 @@ class InputDataSetCFSR(InputDataSet):
         Generate a filename to download for this dataset for the time given.
         '''
         outname = ''
-        if self.date.date() > datetime(2011, 04, 01).date():
+        if self.date.date() > datetime(2011, 0o4, 0o1).date():
             outname = str(self.date.year)[2:]+str(self.date.month).zfill(2)+\
                       str(self.date.day).zfill(2)+str(self.date.hour).zfill(2)+\
                       '.cfsrr.t'+str(self.date.hour).zfill(2)+'z.pgrb2f00'
