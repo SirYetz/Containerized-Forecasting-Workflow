@@ -34,14 +34,14 @@ NOTICE
 
 """
 
-from datasets_aux import *
-from datasets_fcst import *
-from datasets_hist import *
-from datasets_sst import *
-from inputdataset import *
-import sanity
-from Stevedore import *
-import util
+from .datasets_aux import *
+from .datasets_fcst import *
+from .datasets_hist import *
+from .datasets_sst import *
+from .inputdataset import *
+from . import sanity
+from .Stevedore import *
+from . import util
 
 
 __all__ = [s for s in dir() if not s.startswith('_')]

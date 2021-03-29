@@ -233,8 +233,8 @@ def main(argv):
 
         args = parser.parse_args()
 
-    except Exception, general_exception:
-        print 'Exception '+ str(general_exception)
+    except Exception as general_exception:
+        print('Exception '+ str(general_exception))
 
     # create date objects
     hour_start = int(args.hour)
@@ -249,8 +249,8 @@ def main(argv):
     forecast_length = int(args.length)
 
     #Note print off what is going on to aid in debugging
-    print "Running "+ str(date_delta.days+1) +" individual simulation each being "\
-    +str(forecast_length) +" hours in length. UTC start is "+ str(hour_start)
+    print("Running "+ str(date_delta.days+1) +" individual simulation each being "\
+    +str(forecast_length) +" hours in length. UTC start is "+ str(hour_start))
 
     # loop over days to create forecasts
     for i in range(date_delta.days + 1):
@@ -314,19 +314,19 @@ def main(argv):
         #stevedore_instance.execute_ncview("/opt/deepthunder/data","test.nc")
 
 
-    print 'Stevedore has finished'
+    print('Stevedore has finished')
 
 if __name__ == '__main__':
     try:
         main(sys.argv[1:])
         sys.exit(0)
 
-    except KeyboardInterrupt, kb_exception: # Ctrl-C
+    except KeyboardInterrupt as kb_exception: # Ctrl-C
         raise kb_exception
 
-    except SystemExit, system_exception: # sys.exit()
+    except SystemExit as system_exception: # sys.exit()
         raise system_exception
 
-    except Exception, general_exception:
-        print str(general_exception)
+    except Exception as general_exception:
+        print(str(general_exception))
         sys.exit(1)

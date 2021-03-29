@@ -43,7 +43,7 @@ from datetime import datetime, timedelta
 import subprocess
 import shutil
 import glob
-from inputdataset import *
+from .inputdataset import *
 
 class InputDataSetGFSFCST(InputDataSet):
     '''

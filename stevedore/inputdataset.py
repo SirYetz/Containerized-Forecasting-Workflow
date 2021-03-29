@@ -189,7 +189,7 @@ class InputDataSet(object):
                             logging.error('OSError File downloaded but does not exist or wgrib2 is failing.')
 
 
-                except ftplib.error_perm, resp:
+                except ftplib.error_perm as resp:
                     logging.info('Current process:'+str(current_process().name)+\
                                  ' Exception: '+str(resp))
                     downloaded = False
@@ -223,7 +223,7 @@ class InputDataSet(object):
                          'supplied by environment variables RDA_EMAIL and RDA_PASS')
             try:
                 if os.environ.get('RDA_EMAIL') is None:
-                    print "SET the environment variables RDA_EMAIL and RDA_PASS "
+                    print("SET the environment variables RDA_EMAIL and RDA_PASS ")
                 else:
                     process = subprocess.Popen(['wget', '--save-cookies',
                                                 'auth.rda.ucar.edu.$$',
