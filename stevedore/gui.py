@@ -10,9 +10,11 @@ import sys
 import argparse
 from datetime import datetime, timedelta as td
 import stevedore
-import Tkinter as tk
-import tkFont
-import ScrolledText as st 
+import tkinter as tk
+import tkinter.font
+import tkinter.scrolledtext as st
+import os
+import pygubu
 
 
 def gui():
@@ -72,8 +74,12 @@ def gui():
     forecast_length = int(length)
 
     #Note print off what is going on to aid in debugging
-    print "Running "+ str(date_delta.days+1) +" individual simulation each being "\
-    +str(forecast_length) +" hours in length. UTC start is "+ str(hour_start)
+    print("Running "+ str(date_delta.days+1) +" individual simulation each being "\
+    +str(forecast_length) +" hours in length. UTC start is "+ str(hour_start))
+
+    """
+    Run this loop after all inputs have been entered into the GUI
+    Some problem running with default values (all taken from master)
 
     # loop over days to create forecasts
     for i in range(date_delta.days + 1):
@@ -82,7 +88,7 @@ def gui():
         date_i = date_start + td(days=i)
 
         stevedore_instance = stevedore.Stevedore(date_i,
-                                    forecast_length, lat, long,
+                                    forecast_length, lat, int,
                                     ncores=int(ncores),
                                     ndomains=int(ndomains),
                                     timestep=int(timestep),
@@ -114,52 +120,26 @@ def gui():
                                     inputData=inputData,
                                     tsfile=tslistfile,
                                     history_interval=history_interval)
+    """
+    PROJECT_PATH = os.path.dirname(__file__)
+    PROJECT_UI = os.path.join(PROJECT_PATH, "test.ui")
+
+
     class App:
+        def __init__(self):
+            self.builder = builder = pygubu.Builder()
+            builder.add_resource_path(PROJECT_PATH)
+            builder.add_from_file(PROJECT_UI)
+            self.mainwindow = builder.get_object('frame3')
+            builder.connect_callbacks(self)
         
-            
-        def __init__(self, root):
-            #setting title
-            root.title("undefined")
-            #setting window size
-            width=800
-            height=500
-            screenwidth = root.winfo_screenwidth()
-            screenheight = root.winfo_screenheight()
-            alignstr = '%dx%d+%d+%d' % (width, height, (screenwidth - width) / 2, (screenheight - height) / 2)
-            root.geometry(alignstr)
-            root.resizable(width=False, height=False)
+        def Button_ncview(self, event=None):
+            stevedore.Stevedore.execute_ncview("/opt/deepthunder/data","test.nc")
 
-            Button_start=tk.Button(root)
-            Button_start["bg"] = "#efefef"
-            ft = tkFont.Font(family='Times',size=10)
-            Button_start["font"] = ft
-            Button_start["fg"] = "#000000"
-            Button_start["justify"] = "center"
-            Button_start["text"] = "Start WRF"
-            Button_start.place(x=700,y=450,width=70,height=25)
-            Button_start["command"] = self.Button_start_command
+        def run(self):
+            self.mainwindow.mainloop()
 
-            # Creating scrolled text area 
-            # widget with Read only by 
-            # disabling the state 
-            text_area = st.ScrolledText(root, 
-                                        width = width,  
-                                        height = 10,  
-                                        font = ("Times New Roman", 
-                                                10)) 
-            
-            text_area.grid(column = 0, pady = 10, padx = 0) 
-            
-            # Inserting Text which is read only 
-            text_area.insert(tk.INSERT, "This is where I want the WRF output ") 
-            
-            # Making the text read only 
-            text_area.configure(state ='disabled')
-
-        def Button_start_command(self):
-            stevedore_instance.execute_ncview("/opt/deepthunder/data","test.nc")
-
-    
+ 
     root = tk.Tk()
-    app = App(root)
-    root.mainloop()
+    app = App()
+    app.run()

@@ -50,10 +50,6 @@ import stevedore
 from stevedore.sanity import is_sane
 from stevedore.gui import gui
 
-#gui components
-import Tkinter as tk
-import tkFont
-
 def get_parser():
     '''
     Main - run a simulation
