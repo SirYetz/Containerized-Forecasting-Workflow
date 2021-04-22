@@ -59,7 +59,7 @@ At the time of writing this will require about 7G of free space.
 ## Execution
 To Execute a quick run not interactively **with a mounted data directory as defined above**:
 ```
-docker run -w /opt/deepthunder -v /data:/opt/deepthunder/data -i stevedore /bin/python run_simulation.py --start 2017-08-12 --end 2017-08-12 --length 24 --lat 29.434 --long -98.499 --hour 00
+docker run -w /opt/deepthunder -v /data:/opt/deepthunder/data -i stevedore /bin/python3 run_simulation.py --start 2017-08-12 --end 2017-08-12 --length 24 --lat 29.434 --long -98.499 --hour 00
 ```
 
 Please note in the above example /opt/deepthunder/data is mounted on the host at /data.
@@ -72,7 +72,7 @@ docker run -w /opt/deepthunder -e DEEPTHUNDER_ROOT=/opt/deepthunder -v /data:/op
 
 Then run:
 ```
-/bin/python run_simulation.py --start 2017-08-12 --end 2017-08-12 --length 24 --lat 29.434 --long -98.499 --hour 00
+/bin/python3 run_simulation.py --start 2017-08-12 --end 2017-08-12 --length 24 --lat 29.434 --long -98.499 --hour 00
 ```
 
 ### rda.ucar.edu (RDA)
@@ -92,13 +92,13 @@ The above command will mount data from the host directory /data to the container
 You will find yourself in the working directory. For a test run try the following quick example.
 
 ```
-/bin/python run_simulation.py --ncores 16 --start 2016-04-12 --end 2016-04-12 --length 48 --lat 29.434 --long -98.499 --hour 12 --ngridew 91 --ngridns 91 --ndomains 3 --gridratio 3 --timestep 20 --gridspacinginner 2 --phys_mp 17 --phys_ralw 1 --phys_rasw 5 --phys_cu 0 --phys_pbl 1 --phys_sfcc 1 --phys_sfc 2 --phys_urb 0 --initialConditions 'GFSp25' --boundaryConditions 'GFSp25'
+/bin/python3 run_simulation.py --ncores 16 --start 2016-04-12 --end 2016-04-12 --length 48 --lat 29.434 --long -98.499 --hour 12 --ngridew 91 --ngridns 91 --ndomains 3 --gridratio 3 --timestep 20 --gridspacinginner 2 --phys_mp 17 --phys_ralw 1 --phys_rasw 5 --phys_cu 0 --phys_pbl 1 --phys_sfcc 1 --phys_sfc 2 --phys_urb 0 --initialConditions 'GFSp25' --boundaryConditions 'GFSp25'
 ```
 
 
 To execute a run from the host directly:
 ```
-docker run -w /opt/deepthunder -e RDA_EMAIL=bruce@acompany.com -e RDA_PASS=ComPl3xpassw0rd -e DEEPTHUNDER_ROOT=/opt/deepthunder -v /data:/opt/deepthunder/data -i stevedore /bin/python run_simulation.py --ncores 16 --start 2016-04-12 --end 2016-04-12 --length 24 --lat 29.434 --long -98.499 --hour 12 --ngridew 91 --ngridns 91 --ndomains 3 --gridratio 3 --timestep 20 --gridspacinginner 2 --phys_mp 17 --phys_ralw 1 --phys_rasw 5 --phys_cu 0 --phys_pbl 1 --phys_sfcc 1 --phys_sfc 2 --phys_urb 0 --initialConditions 'GFSp25' --boundaryConditions 'GFSp25'
+docker run -w /opt/deepthunder -e RDA_EMAIL=bruce@acompany.com -e RDA_PASS=ComPl3xpassw0rd -e DEEPTHUNDER_ROOT=/opt/deepthunder -v /data:/opt/deepthunder/data -i stevedore /bin/python3 run_simulation.py --ncores 16 --start 2016-04-12 --end 2016-04-12 --length 24 --lat 29.434 --long -98.499 --hour 12 --ngridew 91 --ngridns 91 --ndomains 3 --gridratio 3 --timestep 20 --gridspacinginner 2 --phys_mp 17 --phys_ralw 1 --phys_rasw 5 --phys_cu 0 --phys_pbl 1 --phys_sfcc 1 --phys_sfc 2 --phys_urb 0 --initialConditions 'GFSp25' --boundaryConditions 'GFSp25'
 ```
 
 NOTE: as far as I know bruce@acompany.com is not a real email address. I have used it as an example. I also suggest you do not use ComPl3xpassw0rd as your password :P
@@ -198,7 +198,7 @@ Send me an email when you find one and I will populate this list.
 
 # Execution of unit-tests
 To run unit tests on input data sources try the following command:
-`python -m stevedore.test.test-inputdatasets`
+`python3 -m stevedore.test.test-inputdatasets`
 
 
 ## Alpha notice
