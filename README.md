@@ -59,7 +59,7 @@ At the time of writing this will require about 7G of free space.
 ## Execution
 To Execute a quick run not interactively **with a mounted data directory as defined above**:
 ```
-docker run -w /opt/deepthunder -v /data:/opt/deepthunder/data -i stevedore /bin/python run_simulation.py --start 2017-08-12 --end 2017-08-12 --length 24 --lat 29.434 --long -98.499 --hour 00
+docker run -w /opt/deepthunder -v /data:/opt/deepthunder/data -i stevedore /bin/python3 run_simulation.py --start 2017-08-12 --end 2017-08-12 --length 24 --lat 29.434 --long -98.499 --hour 00
 ```
 
 Please note in the above example /opt/deepthunder/data is mounted on the host at /data.
@@ -72,8 +72,21 @@ docker run -w /opt/deepthunder -e DEEPTHUNDER_ROOT=/opt/deepthunder -v /data:/op
 
 Then run:
 ```
-/bin/python run_simulation.py --start 2017-08-12 --end 2017-08-12 --length 24 --lat 29.434 --long -98.499 --hour 00
+/bin/python3 run_simulation.py --start 2017-08-12 --end 2017-08-12 --length 24 --lat 29.434 --long -98.499 --hour 00
 ```
+
+To execute IBM Containerized Forecasting Workflow using a GUI try:
+```
+docker run -w /opt/deepthunder -e DEEPTHUNDER_ROOT=/opt/deepthunder -v /data:/opt/deepthunder/data -t -i stevedore /bin/bash
+```
+
+Then run:
+```
+/bin/python3 run_simulation.py --gui
+```
+
+
+
 
 ### rda.ucar.edu (RDA)
 Optionally Goto the RDA [website ](https://rda.ucar.edu/) and create for yourself a new account. This will give you access to their data. Many of the datasets require and RDA account. If you select a dataset that requires an RDA account but you do not provide any credentials, that dataset will be dropped. If you provide invalid credentials you will spend a long time waiting for the data to try to download and eventually fail.
@@ -92,13 +105,13 @@ The above command will mount data from the host directory /data to the container
 You will find yourself in the working directory. For a test run try the following quick example.
 
 ```
-/bin/python run_simulation.py --ncores 16 --start 2016-04-12 --end 2016-04-12 --length 48 --lat 29.434 --long -98.499 --hour 12 --ngridew 91 --ngridns 91 --ndomains 3 --gridratio 3 --timestep 20 --gridspacinginner 2 --phys_mp 17 --phys_ralw 1 --phys_rasw 5 --phys_cu 0 --phys_pbl 1 --phys_sfcc 1 --phys_sfc 2 --phys_urb 0 --initialConditions 'GFSp25' --boundaryConditions 'GFSp25'
+/bin/python3 run_simulation.py --ncores 16 --start 2016-04-12 --end 2016-04-12 --length 48 --lat 29.434 --long -98.499 --hour 12 --ngridew 91 --ngridns 91 --ndomains 3 --gridratio 3 --timestep 20 --gridspacinginner 2 --phys_mp 17 --phys_ralw 1 --phys_rasw 5 --phys_cu 0 --phys_pbl 1 --phys_sfcc 1 --phys_sfc 2 --phys_urb 0 --initialConditions 'GFSp25' --boundaryConditions 'GFSp25'
 ```
 
 
 To execute a run from the host directly:
 ```
-docker run -w /opt/deepthunder -e RDA_EMAIL=bruce@acompany.com -e RDA_PASS=ComPl3xpassw0rd -e DEEPTHUNDER_ROOT=/opt/deepthunder -v /data:/opt/deepthunder/data -i stevedore /bin/python run_simulation.py --ncores 16 --start 2016-04-12 --end 2016-04-12 --length 24 --lat 29.434 --long -98.499 --hour 12 --ngridew 91 --ngridns 91 --ndomains 3 --gridratio 3 --timestep 20 --gridspacinginner 2 --phys_mp 17 --phys_ralw 1 --phys_rasw 5 --phys_cu 0 --phys_pbl 1 --phys_sfcc 1 --phys_sfc 2 --phys_urb 0 --initialConditions 'GFSp25' --boundaryConditions 'GFSp25'
+docker run -w /opt/deepthunder -e RDA_EMAIL=bruce@acompany.com -e RDA_PASS=ComPl3xpassw0rd -e DEEPTHUNDER_ROOT=/opt/deepthunder -v /data:/opt/deepthunder/data -i stevedore /bin/python3 run_simulation.py --ncores 16 --start 2016-04-12 --end 2016-04-12 --length 24 --lat 29.434 --long -98.499 --hour 12 --ngridew 91 --ngridns 91 --ndomains 3 --gridratio 3 --timestep 20 --gridspacinginner 2 --phys_mp 17 --phys_ralw 1 --phys_rasw 5 --phys_cu 0 --phys_pbl 1 --phys_sfcc 1 --phys_sfc 2 --phys_urb 0 --initialConditions 'GFSp25' --boundaryConditions 'GFSp25'
 ```
 
 NOTE: as far as I know bruce@acompany.com is not a real email address. I have used it as an example. I also suggest you do not use ComPl3xpassw0rd as your password :P
@@ -134,6 +147,7 @@ The following preconfigured datasets are defined.
 ## run_simulation
 run_simulation.py is a  script will let you run a forecast, hindcast, or reanalysis. This script has a number of options described below:
 
+ + --gui start in GUI mode
  + --start start date and time in format yyyy-mm-dd
  + --end end date and time in format yyyy-mm-dd
  + --length forecast length in hours in format HH
@@ -198,7 +212,7 @@ Send me an email when you find one and I will populate this list.
 
 # Execution of unit-tests
 To run unit tests on input data sources try the following command:
-`python -m stevedore.test.test-inputdatasets`
+`python3 -m stevedore.test.test-inputdatasets`
 
 
 ## Alpha notice
