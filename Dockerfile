@@ -24,6 +24,7 @@ yum remove -y jasper-devel cairo-devel grib_api-devel python3-devel curl-devel e
 yum clean all ;\
 yum -y install ncview;\
 yum -y install python3;\
+yum -y install python3-tkinter;\
 rm -rf /usr/share/ncarg/data/cdf
 
 ADD PreProcessing /opt/deepthunder/PreProcessing/
