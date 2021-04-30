@@ -94,6 +94,17 @@
             </layout>
           </object>
         </child>
+        <child>
+          <object class="tk.Button" id="button1">
+            <property name="text" translatable="yes">Open</property>
+            <bind add="" handler="openFile" sequence="&lt;1&gt;" />
+            <layout manager="grid">
+              <property name="column">3</property>
+              <property name="propagate">True</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
       </object>
     </child>
     <child>

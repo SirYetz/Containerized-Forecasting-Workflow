@@ -1295,14 +1295,14 @@ class Stevedore(object):
 
     
     @staticmethod
-    def execute_ncview(directory_nc, file):
+    def execute_ncview(filepath):
         """
             Starting ncview
 
             Dummy function for now which just loads the test file in the data dir
         """
         # record start of execution of wrf.exe
-        os.chdir(directory_nc)
+        #os.chdir(directory_nc)
         logging.info('_execute_ncview: starting ncview')
-        process = subprocess.Popen(['ncview',str(file)])
-        process.wait()
+        process = subprocess.Popen(['ncview',str(filepath)])
+

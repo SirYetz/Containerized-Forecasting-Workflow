@@ -10,7 +10,9 @@ import sys
 import argparse
 from datetime import datetime, timedelta as td
 import stevedore
+from stevedore.sanity import is_sane
 import tkinter as tk
+from tkinter import filedialog
 import os
 import pygubu
 
@@ -29,7 +31,13 @@ def gui():
             builder.add_from_file(PROJECT_UI)
             self.mainwindow = builder.get_object('frame3')
             builder.connect_callbacks(self)
-        
+
+        def openFile(self, event=None):
+            self.filename = filedialog.askopenfilename(initialdir = "/opt/deepthunder/data",title = "Select file",filetypes = (("NetCDF4","*.nc"),("all files","*.*")))
+            print(self.filename)
+            stevedore.Stevedore.execute_ncview(self.filename)
+            return
+
         def Button_ncview(self, event=None):
             stevedore.Stevedore.execute_ncview("/opt/deepthunder/data","test.nc")
 
@@ -138,12 +146,24 @@ def gui():
                                             inputData=inputData,
                                             tsfile=tslistfile,
                                             history_interval=history_interval)
-    
+                # check if the object is sane.
+                # Check for sanity
+                is_sane(stevedore_instance)
+
+                # check if input data sets already exist, if not download it.
+                if not nopreprocess:
+                    stevedore_instance.check_input_data()
+
+                    # run pre-processing System
+                    stevedore_instance.run_preprocessing()
+
+                # run WRF
+                stevedore_instance.run_WRF()
 
         def run(self):
             self.mainwindow.mainloop()
 
  
-    root = tk.Tk()
+    #root = tk.Tk()
     app = App()
     app.run()
