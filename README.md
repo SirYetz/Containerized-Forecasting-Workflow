@@ -77,13 +77,35 @@ Then run:
 
 To execute IBM Containerized Forecasting Workflow using a GUI try:
 ```
-docker run -w /opt/deepthunder -e DEEPTHUNDER_ROOT=/opt/deepthunder -v /data:/opt/deepthunder/data -t -i stevedore /bin/bash
+docker run -w /opt/deepthunder --net=host -e DISPLAY -e DEEPTHUNDER_ROOT=/opt/deepthunder -v /data:/opt/deepthunder/data -v $HOME/.Xauthority:/root/.Xauthority:rw -v /tmp/.X11-unix -t -i stevedore /bin/bash
 ```
+OR
+Customise and run the script at stevedore/scripts/start.sh
 
 Then run:
 ```
 /bin/python3 run_simulation.py --gui
 ```
+
+To execute IBM Containerized Forecasting Workflow GUI remotely:
+
+Ensure the server hosting the docker container has the following options set in /etc/ssh/sshd_config **(be aware of security implications)**
+```
+X11Forwarding yes
+X11UseLocalhost no
+```
+and restart the ssh daemon for changes to take effect
+```
+sudo systemctl restart sshd
+```
+From the remote host, ssh using x forwarding and run using the same instructions as above
+```
+ssh -X user@host
+docker run -w /opt/deepthunder --net=host -e DISPLAY -e DEEPTHUNDER_ROOT=/opt/deepthunder -v /data:/opt/deepthunder/data -v $HOME/.Xauthority:/root/.Xauthority:rw -v /tmp/.X11-unix -t -i stevedore /bin/bash
+/bin/python3 run_simulation.py --gui
+```
+
+
 
 
 
