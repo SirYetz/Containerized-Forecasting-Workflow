@@ -12,7 +12,7 @@ from datetime import datetime, timedelta as td
 import stevedore
 from stevedore.sanity import is_sane
 import tkinter as tk
-from tkinter import filedialog
+from tkinter import filedialog, StringVar
 import os
 import pygubu
 
@@ -33,17 +33,31 @@ def gui():
             builder.connect_callbacks(self)
 
             #This is where we set all the defaults
-            value=self.builder.get_variable('text_1')
-
+            #The variable 'test_1' is set as the text entry's "textvariable" in pygubu
+ 
             #This is an example of how to set the values
-            value.set(10)
-            
-             
+            #https://www.python-course.eu/tkinter_variable_classes.php
+            self.builder.get_variable('text_1').set(10)
+
+ 
+
+
+
+
 
         def printtext(self, event=None):
             #This is a demo of how we get the values 
-            value=self.builder.get_variable('text_1')
-            print(value.get())
+            print(self.builder.get_variable('text_1').get())
+
+            #Test drop down selection
+            print(self.builder.get_variable('myResult').get())
+
+            #Test checkbox selection
+            print(self.builder.get_variable('option').get())
+
+            #https://www.python-course.eu/tkinter_radiobuttons.php
+            #Test checkbox selection
+            print(self.builder.get_variable('radio').get())
             
                 
         def openFile(self, event=None):
