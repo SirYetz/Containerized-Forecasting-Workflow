@@ -32,6 +32,20 @@ def gui():
             self.mainwindow = builder.get_object('frame3')
             builder.connect_callbacks(self)
 
+            #This is where we set all the defaults
+            value=self.builder.get_variable('text_1')
+
+            #This is an example of how to set the values
+            value.set(10)
+            
+             
+
+        def printtext(self, event=None):
+            #This is a demo of how we get the values 
+            value=self.builder.get_variable('text_1')
+            print(value.get())
+            
+                
         def openFile(self, event=None):
             self.filename = filedialog.askopenfilename(initialdir = "/opt/deepthunder/data",title = "Select file",filetypes = (("NetCDF4","*.nc"),("all files","*.*")))
             print(self.filename)
