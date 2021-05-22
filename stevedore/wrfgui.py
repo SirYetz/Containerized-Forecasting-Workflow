@@ -9,10 +9,11 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QDate
 import sys
 from datetime import datetime, timedelta as td
-import stevedore
+#import stevedore
 #from stevedore.sanity import is_sane
 import os
 import subprocess
@@ -21,26 +22,24 @@ import subprocess
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(790, 851)
+        MainWindow.resize(861, 899)
         MainWindow.setDockNestingEnabled(True)
         MainWindow.setDockOptions(QtWidgets.QMainWindow.AllowNestedDocks|QtWidgets.QMainWindow.AllowTabbedDocks|QtWidgets.QMainWindow.AnimatedDocks)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.runwrfbutton = QtWidgets.QPushButton(self.centralwidget)
-        self.runwrfbutton.setGeometry(QtCore.QRect(400, 20, 80, 22))
+        self.runwrfbutton.setGeometry(QtCore.QRect(400, 20, 81, 21))
         self.runwrfbutton.setObjectName("runwrfbutton")
-        self.runwrfbutton.clicked.connect(self.runwrf)              # runwrf action
         self.ncviewbutton = QtWidgets.QPushButton(self.centralwidget)
         self.ncviewbutton.setGeometry(QtCore.QRect(400, 60, 80, 22))
         self.ncviewbutton.setObjectName("ncviewbutton")
-        self.ncviewbutton.clicked.connect(self.ncview)              # ncviewbutton action
         self.wrfoptionsframe = QtWidgets.QFrame(self.centralwidget)
         self.wrfoptionsframe.setGeometry(QtCore.QRect(0, 0, 381, 191))
         self.wrfoptionsframe.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.wrfoptionsframe.setFrameShadow(QtWidgets.QFrame.Raised)
         self.wrfoptionsframe.setObjectName("wrfoptionsframe")
         self.formLayoutWidget = QtWidgets.QWidget(self.wrfoptionsframe)
-        self.formLayoutWidget.setGeometry(QtCore.QRect(10, 10, 351, 185))
+        self.formLayoutWidget.setGeometry(QtCore.QRect(10, 10, 351, 201))
         self.formLayoutWidget.setObjectName("formLayoutWidget")
         self.formLayout = QtWidgets.QFormLayout(self.formLayoutWidget)
         self.formLayout.setContentsMargins(0, 0, 0, 0)
@@ -55,16 +54,14 @@ class Ui_MainWindow(object):
         self.label_6 = QtWidgets.QLabel(self.formLayoutWidget)
         self.label_6.setObjectName("label_6")
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label_6)
-        self.startDate = QtWidgets.QDateEdit(self.formLayoutWidget)
+        self.startDate = QtWidgets.QDateTimeEdit(self.formLayoutWidget)
         self.startDate.setObjectName("startDate")
-        self.startDate.setDisplayFormat("yyyy-MM-dd")
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.startDate)
         self.label_7 = QtWidgets.QLabel(self.formLayoutWidget)
         self.label_7.setObjectName("label_7")
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.label_7)
-        self.endDate = QtWidgets.QDateEdit(self.formLayoutWidget)
+        self.endDate = QtWidgets.QDateTimeEdit(self.formLayoutWidget)
         self.endDate.setObjectName("endDate")
-        self.endDate.setDisplayFormat("yyyy-MM-dd")
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.endDate)
         self.label_8 = QtWidgets.QLabel(self.formLayoutWidget)
         self.label_8.setObjectName("label_8")
@@ -90,7 +87,7 @@ class Ui_MainWindow(object):
         self.physicsoptionsframe.setFrameShadow(QtWidgets.QFrame.Raised)
         self.physicsoptionsframe.setObjectName("physicsoptionsframe")
         self.formLayoutWidget_2 = QtWidgets.QWidget(self.physicsoptionsframe)
-        self.formLayoutWidget_2.setGeometry(QtCore.QRect(10, 10, 361, 601))
+        self.formLayoutWidget_2.setGeometry(QtCore.QRect(10, 10, 361, 721))
         self.formLayoutWidget_2.setObjectName("formLayoutWidget_2")
         self.formLayout_2 = QtWidgets.QFormLayout(self.formLayoutWidget_2)
         self.formLayout_2.setContentsMargins(0, 0, 0, 0)
@@ -154,13 +151,9 @@ class Ui_MainWindow(object):
         self.label_17 = QtWidgets.QLabel(self.formLayoutWidget_2)
         self.label_17.setObjectName("label_17")
         self.formLayout_2.setWidget(9, QtWidgets.QFormLayout.LabelRole, self.label_17)
-        self.formLayout_2.setWidget(9, QtWidgets.QFormLayout.FieldRole, self.sitefile)
         self.label_18 = QtWidgets.QLabel(self.formLayoutWidget_2)
         self.label_18.setObjectName("label_18")
         self.formLayout_2.setWidget(10, QtWidgets.QFormLayout.LabelRole, self.label_18)
-        self.tslistfile = QtWidgets.QLineEdit(self.formLayoutWidget_2)
-        self.tslistfile.setObjectName("tslistfile")
-        self.formLayout_2.setWidget(10, QtWidgets.QFormLayout.FieldRole, self.tslistfile)
         self.label_19 = QtWidgets.QLabel(self.formLayoutWidget_2)
         self.label_19.setObjectName("label_19")
         self.formLayout_2.setWidget(11, QtWidgets.QFormLayout.LabelRole, self.label_19)
@@ -221,13 +214,23 @@ class Ui_MainWindow(object):
         self.phys_urb = QtWidgets.QSpinBox(self.formLayoutWidget_2)
         self.phys_urb.setObjectName("phys_urb")
         self.formLayout_2.setWidget(19, QtWidgets.QFormLayout.FieldRole, self.phys_urb)
+        self.sitefile_2 = QtWidgets.QComboBox(self.formLayoutWidget_2)
+        self.sitefile_2.setObjectName("sitefile_2")
+        self.sitefile_2.addItem("")
+        self.sitefile_2.addItem("")
+        self.formLayout_2.setWidget(9, QtWidgets.QFormLayout.FieldRole, self.sitefile_2)
+        self.tslistfile_2 = QtWidgets.QComboBox(self.formLayoutWidget_2)
+        self.tslistfile_2.setObjectName("tslistfile_2")
+        self.tslistfile_2.addItem("")
+        self.tslistfile_2.addItem("")
+        self.formLayout_2.setWidget(10, QtWidgets.QFormLayout.FieldRole, self.tslistfile_2)
         self.moreoptionsframe = QtWidgets.QFrame(self.centralwidget)
         self.moreoptionsframe.setGeometry(QtCore.QRect(390, 470, 391, 351))
         self.moreoptionsframe.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.moreoptionsframe.setFrameShadow(QtWidgets.QFrame.Raised)
         self.moreoptionsframe.setObjectName("moreoptionsframe")
         self.verticalLayoutWidget = QtWidgets.QWidget(self.moreoptionsframe)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 10, 371, 21))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 10, 371, 28))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
@@ -240,7 +243,7 @@ class Ui_MainWindow(object):
         self.label_3.setObjectName("label_3")
         self.verticalLayout.addWidget(self.label_3)
         self.horizontalLayoutWidget_3 = QtWidgets.QWidget(self.moreoptionsframe)
-        self.horizontalLayoutWidget_3.setGeometry(QtCore.QRect(130, 40, 251, 21))
+        self.horizontalLayoutWidget_3.setGeometry(QtCore.QRect(130, 40, 251, 22))
         self.horizontalLayoutWidget_3.setObjectName("horizontalLayoutWidget_3")
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_3)
         self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
@@ -252,7 +255,7 @@ class Ui_MainWindow(object):
         self.label_32.setObjectName("label_32")
         self.horizontalLayout_3.addWidget(self.label_32)
         self.horizontalLayoutWidget_7 = QtWidgets.QWidget(self.moreoptionsframe)
-        self.horizontalLayoutWidget_7.setGeometry(QtCore.QRect(10, 70, 371, 21))
+        self.horizontalLayoutWidget_7.setGeometry(QtCore.QRect(10, 70, 371, 22))
         self.horizontalLayoutWidget_7.setObjectName("horizontalLayoutWidget_7")
         self.horizontalLayout_7 = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_7)
         self.horizontalLayout_7.setContentsMargins(0, 0, 0, 0)
@@ -269,7 +272,7 @@ class Ui_MainWindow(object):
         self.auxhist7false.setObjectName("auxhist7false")
         self.horizontalLayout_7.addWidget(self.auxhist7false)
         self.horizontalLayoutWidget_10 = QtWidgets.QWidget(self.moreoptionsframe)
-        self.horizontalLayoutWidget_10.setGeometry(QtCore.QRect(10, 90, 371, 21))
+        self.horizontalLayoutWidget_10.setGeometry(QtCore.QRect(10, 90, 371, 22))
         self.horizontalLayoutWidget_10.setObjectName("horizontalLayoutWidget_10")
         self.horizontalLayout_10 = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_10)
         self.horizontalLayout_10.setContentsMargins(0, 0, 0, 0)
@@ -286,7 +289,7 @@ class Ui_MainWindow(object):
         self.auxhist2false.setObjectName("auxhist2false")
         self.horizontalLayout_10.addWidget(self.auxhist2false)
         self.horizontalLayoutWidget_8 = QtWidgets.QWidget(self.moreoptionsframe)
-        self.horizontalLayoutWidget_8.setGeometry(QtCore.QRect(10, 110, 371, 21))
+        self.horizontalLayoutWidget_8.setGeometry(QtCore.QRect(10, 110, 371, 22))
         self.horizontalLayoutWidget_8.setObjectName("horizontalLayoutWidget_8")
         self.horizontalLayout_8 = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_8)
         self.horizontalLayout_8.setContentsMargins(0, 0, 0, 0)
@@ -303,7 +306,7 @@ class Ui_MainWindow(object):
         self.feedbackfalse.setObjectName("feedbackfalse")
         self.horizontalLayout_8.addWidget(self.feedbackfalse)
         self.horizontalLayoutWidget_9 = QtWidgets.QWidget(self.moreoptionsframe)
-        self.horizontalLayoutWidget_9.setGeometry(QtCore.QRect(10, 130, 371, 21))
+        self.horizontalLayoutWidget_9.setGeometry(QtCore.QRect(10, 130, 371, 22))
         self.horizontalLayoutWidget_9.setObjectName("horizontalLayoutWidget_9")
         self.horizontalLayout_9 = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_9)
         self.horizontalLayout_9.setContentsMargins(0, 0, 0, 0)
@@ -320,7 +323,7 @@ class Ui_MainWindow(object):
         self.nopreprocessingfalse.setObjectName("nopreprocessingfalse")
         self.horizontalLayout_9.addWidget(self.nopreprocessingfalse)
         self.horizontalLayoutWidget_11 = QtWidgets.QWidget(self.moreoptionsframe)
-        self.horizontalLayoutWidget_11.setGeometry(QtCore.QRect(10, 150, 371, 21))
+        self.horizontalLayoutWidget_11.setGeometry(QtCore.QRect(10, 150, 371, 22))
         self.horizontalLayoutWidget_11.setObjectName("horizontalLayoutWidget_11")
         self.horizontalLayout_11 = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_11)
         self.horizontalLayout_11.setContentsMargins(0, 0, 0, 0)
@@ -337,7 +340,7 @@ class Ui_MainWindow(object):
         self.norunwrffalse.setObjectName("norunwrffalse")
         self.horizontalLayout_11.addWidget(self.norunwrffalse)
         self.horizontalLayoutWidget_12 = QtWidgets.QWidget(self.moreoptionsframe)
-        self.horizontalLayoutWidget_12.setGeometry(QtCore.QRect(10, 170, 371, 21))
+        self.horizontalLayoutWidget_12.setGeometry(QtCore.QRect(10, 170, 371, 22))
         self.horizontalLayoutWidget_12.setObjectName("horizontalLayoutWidget_12")
         self.horizontalLayout_12 = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_12)
         self.horizontalLayout_12.setContentsMargins(0, 0, 0, 0)
@@ -354,7 +357,7 @@ class Ui_MainWindow(object):
         self.isanalysisfalse.setObjectName("isanalysisfalse")
         self.horizontalLayout_12.addWidget(self.isanalysisfalse)
         self.formLayoutWidget_3 = QtWidgets.QWidget(self.moreoptionsframe)
-        self.formLayoutWidget_3.setGeometry(QtCore.QRect(10, 200, 371, 141))
+        self.formLayoutWidget_3.setGeometry(QtCore.QRect(10, 200, 371, 166))
         self.formLayoutWidget_3.setObjectName("formLayoutWidget_3")
         self.formLayout_3 = QtWidgets.QFormLayout(self.formLayoutWidget_3)
         self.formLayout_3.setContentsMargins(0, 0, 0, 0)
@@ -368,9 +371,6 @@ class Ui_MainWindow(object):
         self.label_30 = QtWidgets.QLabel(self.formLayoutWidget_3)
         self.label_30.setObjectName("label_30")
         self.formLayout_3.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label_30)
-        self.altftpserver = QtWidgets.QLineEdit(self.formLayoutWidget_3)
-        self.altftpserver.setObjectName("altftpserver")
-        self.formLayout_3.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.altftpserver)
         self.label_31 = QtWidgets.QLabel(self.formLayoutWidget_3)
         self.label_31.setObjectName("label_31")
         self.formLayout_3.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.label_31)
@@ -389,6 +389,11 @@ class Ui_MainWindow(object):
         self.inputdata = QtWidgets.QLineEdit(self.formLayoutWidget_3)
         self.inputdata.setObjectName("inputdata")
         self.formLayout_3.setWidget(4, QtWidgets.QFormLayout.FieldRole, self.inputdata)
+        self.altftpserver = QtWidgets.QComboBox(self.formLayoutWidget_3)
+        self.altftpserver.setObjectName("altftpserver")
+        self.altftpserver.addItem("")
+        self.altftpserver.addItem("")
+        self.formLayout_3.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.altftpserver)
         self.displayframe5 = QtWidgets.QFrame(self.centralwidget)
         self.displayframe5.setGeometry(QtCore.QRect(390, 100, 391, 351))
         self.displayframe5.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -396,7 +401,7 @@ class Ui_MainWindow(object):
         self.displayframe5.setObjectName("displayframe5")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 790, 19))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 861, 25))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -421,7 +426,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuSettings.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
-
+        
         # Set Default values
         self.startDate.setDate(QDate(2017, 8, 12))
         self.endDate.setDate(QDate(2017, 8, 12))
@@ -436,14 +441,13 @@ class Ui_MainWindow(object):
         self.gridspacing.setValue(1.5)
         self.timestep.setValue(10)
         self.wpsmapproj.setText("lambert")
-        self.sitefile.setText("None")
-        self.tslistfile.setText("None")
+        #self.sitefile.setText("None")
+        #self.tslistfile.setText("None")
         self.ncores.setValue(2)
         self.history_interval.setText("40")
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -477,6 +481,10 @@ class Ui_MainWindow(object):
         self.label_26.setText(_translate("MainWindow", "phys_sfcc"))
         self.label_27.setText(_translate("MainWindow", "phys_urb"))
         self.label_28.setText(_translate("MainWindow", "runshort"))
+        self.sitefile_2.setItemText(0, _translate("MainWindow", "None"))
+        self.sitefile_2.setItemText(1, _translate("MainWindow", "Something else"))
+        self.tslistfile_2.setItemText(0, _translate("MainWindow", "None"))
+        self.tslistfile_2.setItemText(1, _translate("MainWindow", "Something else"))
         self.label_3.setText(_translate("MainWindow", "More Options"))
         self.label_33.setText(_translate("MainWindow", "True"))
         self.label_32.setText(_translate("MainWindow", "False"))
@@ -491,19 +499,21 @@ class Ui_MainWindow(object):
         self.label_31.setText(_translate("MainWindow", "initialConditions"))
         self.label_34.setText(_translate("MainWindow", "boundaryConditions"))
         self.label_35.setText(_translate("MainWindow", "InputData"))
+        self.altftpserver.setItemText(0, _translate("MainWindow", "None"))
+        self.altftpserver.setItemText(1, _translate("MainWindow", "Something else"))
         self.menuFile.setTitle(_translate("MainWindow", "File"))
         self.menuSettings.setTitle(_translate("MainWindow", "Settings"))
         self.menuHelp.setTitle(_translate("MainWindow", "Help"))
         self.actionOpen.setText(_translate("MainWindow", "Open"))
         self.actionSave.setText(_translate("MainWindow", "Save"))
         self.actionSave_As.setText(_translate("MainWindow", "Save As"))
-
+        
     # ncview button press
     def ncview(self):
         print('displaying ncview')
         # os.system('ncview /opt/deepthunder/data/sample.nc')
         subprocess.call('ncview /opt/deepthunder/data/sample.nc', shell=True)
-
+        
     #run wrf button press
     def runwrf(self):
         print('running wrf')
@@ -608,7 +618,7 @@ class Ui_MainWindow(object):
         # run wrf
         stevedore_instance.run_WRF()
         '''
-
+        
     # open button press
     #def openfile(self, event=None):
      #   self.filename = filedialog.askopenfilename(initialdir = "/opt/deepthunder/data", title = "Select File", filetypes = (('NetCDF4','*.nc'),('all files','*.*')))
@@ -616,7 +626,6 @@ class Ui_MainWindow(object):
     def openfile(self):
         filename = QtWidgets.QFileDialog.getOpenFileName(self, "Open File", "/opt/deepthunder/data", "All Files (*)", "","")
         print('open')
-
 
 if __name__ == "__main__":
     import sys
