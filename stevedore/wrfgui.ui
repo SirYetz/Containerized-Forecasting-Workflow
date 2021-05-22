@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>790</width>
-    <height>851</height>
+    <width>861</width>
+    <height>899</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,8 +25,8 @@
      <rect>
       <x>400</x>
       <y>20</y>
-      <width>80</width>
-      <height>22</height>
+      <width>81</width>
+      <height>21</height>
      </rect>
     </property>
     <property name="text">
@@ -67,7 +67,7 @@
        <x>10</x>
        <y>10</y>
        <width>351</width>
-       <height>185</height>
+       <height>201</height>
       </rect>
      </property>
      <layout class="QFormLayout" name="formLayout">
@@ -160,7 +160,7 @@
        <x>10</x>
        <y>10</y>
        <width>361</width>
-       <height>601</height>
+       <height>721</height>
       </rect>
      </property>
      <layout class="QFormLayout" name="formLayout_2">
@@ -270,18 +270,12 @@
         </property>
        </widget>
       </item>
-      <item row="9" column="1">
-       <widget class="QLineEdit" name="sitefile"/>
-      </item>
       <item row="10" column="0">
        <widget class="QLabel" name="label_18">
         <property name="text">
          <string>tslistfile</string>
         </property>
        </widget>
-      </item>
-      <item row="10" column="1">
-       <widget class="QLineEdit" name="tslistfile"/>
       </item>
       <item row="11" column="0">
        <widget class="QLabel" name="label_19">
@@ -383,6 +377,34 @@
       <item row="19" column="1">
        <widget class="QSpinBox" name="phys_urb"/>
       </item>
+      <item row="9" column="1">
+       <widget class="QComboBox" name="sitefile_2">
+        <item>
+         <property name="text">
+          <string>None</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Something else</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="10" column="1">
+       <widget class="QComboBox" name="tslistfile_2">
+        <item>
+         <property name="text">
+          <string>None</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Something else</string>
+         </property>
+        </item>
+       </widget>
+      </item>
      </layout>
     </widget>
    </widget>
@@ -407,7 +429,7 @@
        <x>10</x>
        <y>10</y>
        <width>371</width>
-       <height>21</height>
+       <height>28</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
@@ -434,7 +456,7 @@
        <x>130</x>
        <y>40</y>
        <width>251</width>
-       <height>21</height>
+       <height>22</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -460,7 +482,7 @@
        <x>10</x>
        <y>70</y>
        <width>371</width>
-       <height>21</height>
+       <height>22</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_7">
@@ -493,7 +515,7 @@
        <x>10</x>
        <y>90</y>
        <width>371</width>
-       <height>21</height>
+       <height>22</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_10">
@@ -526,7 +548,7 @@
        <x>10</x>
        <y>110</y>
        <width>371</width>
-       <height>21</height>
+       <height>22</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_8">
@@ -559,7 +581,7 @@
        <x>10</x>
        <y>130</y>
        <width>371</width>
-       <height>21</height>
+       <height>22</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_9">
@@ -592,7 +614,7 @@
        <x>10</x>
        <y>150</y>
        <width>371</width>
-       <height>21</height>
+       <height>22</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_11">
@@ -625,7 +647,7 @@
        <x>10</x>
        <y>170</y>
        <width>371</width>
-       <height>21</height>
+       <height>22</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_12">
@@ -658,7 +680,7 @@
        <x>10</x>
        <y>200</y>
        <width>371</width>
-       <height>141</height>
+       <height>166</height>
       </rect>
      </property>
      <layout class="QFormLayout" name="formLayout_3">
@@ -678,9 +700,6 @@
          <string>altftpserver</string>
         </property>
        </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QLineEdit" name="altftpserver"/>
       </item>
       <item row="2" column="0">
        <widget class="QLabel" name="label_31">
@@ -712,6 +731,20 @@
       <item row="4" column="1">
        <widget class="QLineEdit" name="inputdata"/>
       </item>
+      <item row="1" column="1">
+       <widget class="QComboBox" name="altftpserver">
+        <item>
+         <property name="text">
+          <string>None</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Something else</string>
+         </property>
+        </item>
+       </widget>
+      </item>
      </layout>
     </widget>
    </widget>
@@ -737,8 +770,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>790</width>
-     <height>19</height>
+     <width>861</width>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
