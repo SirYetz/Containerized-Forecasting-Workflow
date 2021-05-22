@@ -13,7 +13,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QDate
 import sys
 from datetime import datetime, timedelta as td
-#import stevedore
+import stevedore
 #from stevedore.sanity import is_sane
 import os
 import subprocess
@@ -30,9 +30,11 @@ class Ui_MainWindow(object):
         self.runwrfbutton = QtWidgets.QPushButton(self.centralwidget)
         self.runwrfbutton.setGeometry(QtCore.QRect(400, 20, 81, 21))
         self.runwrfbutton.setObjectName("runwrfbutton")
+        self.runwrfbutton.clicked.connect(self.runwrf)        # runwrf action
         self.ncviewbutton = QtWidgets.QPushButton(self.centralwidget)
         self.ncviewbutton.setGeometry(QtCore.QRect(400, 60, 80, 22))
         self.ncviewbutton.setObjectName("ncviewbutton")
+        self.ncviewbutton.clicked.connect(self.ncview)        # ncviewbutton action
         self.wrfoptionsframe = QtWidgets.QFrame(self.centralwidget)
         self.wrfoptionsframe.setGeometry(QtCore.QRect(0, 0, 381, 191))
         self.wrfoptionsframe.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -441,10 +443,27 @@ class Ui_MainWindow(object):
         self.gridspacing.setValue(1.5)
         self.timestep.setValue(10)
         self.wpsmapproj.setText("lambert")
-        #self.sitefile.setText("None")
-        #self.tslistfile.setText("None")
         self.ncores.setValue(2)
         self.history_interval.setText("40")
+        self.phys_mp.setValue(17)
+        self.phys_rawl.setValue(4)
+        self.phys_rasw.setValue(4)
+        self.phys_cu.setValue(0)
+        self.phys_pbl.setValue(1)
+        self.phys_sfcc.setValue(1)
+        self.phys_urb.setValue(0)
+        self.runshort.setValue(0)
+        self.auxhist7false.setChecked(True)
+        self.auxhist2false.setChecked(True)
+        self.feedbackfalse.setChecked(True)
+        self.nopreprocessingfalse.setChecked(True)
+        self.norunwrffalse.setChecked(True)
+        self.isanalysisfalse.setChecked(True)
+        self.projectdir.setText("undefined")
+        self.initialconditions.setText("GFS")
+        self.boundaryconditions.setText("GFS")
+        self.inputdata.setText("")
+
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
