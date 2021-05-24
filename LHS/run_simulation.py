@@ -47,12 +47,12 @@ import sys
 import argparse
 from datetime import datetime, timedelta as td
 from math import pi, cos
-import os
+import os,glob,re
 import logging
 from multiprocessing import Process, Queue, cpu_count
 import shutil
 import subprocess
-from . import util
+import util
 
 def main(argv):
     '''
@@ -642,16 +642,47 @@ def _execute_WRF(number_cores, directory_wrf_run, norunwrf):
         process = subprocess.Popen(['mpirun', '-np', str(number_cores), './wrf.exe'])
         process.wait()
 
-#This function should:
-#  copy the resultant wrfoutput file into the nc folder and rename according to sample number
-#  copy the namelist.input file into the input file and rename according to sample number
+# Move and rename files
+# Wrfoutput files are of the form wrfout_d01_2011-12-31_00:00:00
+# namelist file is namelist.input
+# Purpose:
+#  change to wrfoutput to sample<n>_d01 and move to netcdf folder
+#  change namelist.input to sample_<n> in the inputs folder
 def move_files(n):
-    pass
+
+    # Parents directory to this one is where the wrfout file file be
+    path = os.path.dirname(os.getcwd())
+    
+    # Rename files to reflect the sample  number
+    for filename in glob.glob(path + '/*' ):
+        pattern_wrf = r'(.*)(wrfout)_d(\d{1,2})(.*)'
+        pattern_namelist = r'(.*)(namelist.input)'
+        if re.search(pattern_wrf,filename):
+            replace = r'\1'+'LHS/netcdf/'+'sample_' + str(n) + '_d' + r'\3'
+            new_name = re.sub(pattern_wrf, replace, filename) 
+            os.rename(filename, new_name)
+        elif re.search(pattern_namelist,filename):
+            replace = r'\1'+'LHS/inputs/'+'sample_' + str(n)
+            new_name = re.sub(pattern_namelist, replace, filename) 
+            os.rename(filename, new_name)
     return
 
 if __name__ == '__main__':
     try:
-        main(sys.argv[1:])
+        #Just testing functions at this stage
+        #Use this once testing of each function complete
+        #main(sys.argv[1:])
+        
+        #This creates appropriate directories for storing used namelist.input files in outputs
+        if not os.path.exists(os.getcwd()+'/netcdf'):
+            os.mkdir(os.getcwd()+'/netcdf')
+
+        if not os.path.exists(os.getcwd()+'/inputs'):
+            os.mkdir(os.getcwd()+'/inputs')
+
+        # Testing of move_files function complete
+        # move_files(1)
+
         sys.exit(0)
 
     except KeyboardInterrupt as kb_exception: # Ctrl-C
