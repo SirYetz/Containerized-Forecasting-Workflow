@@ -39,7 +39,7 @@
 /
 
 &domains
- p_top_requested	= 10000.,
+ p_top_requested	= 2500,
  time_step		= DT_TIME_STEP_DT,
  time_step_fract_num	= 0,
  time_step_fract_den	= 1,
@@ -90,7 +90,6 @@
  icloud		= 1,
  surface_input_source	= 1,
  num_soil_layers	= 4,
- num_land_cat	= 24,
  maxiens		= 1,
  maxens		= 3,
  maxens2		= 3,

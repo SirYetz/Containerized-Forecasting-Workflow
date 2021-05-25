@@ -414,7 +414,7 @@ def create_namelist(samples):
 
             # Random dodgy settings
             util.replace_string_in_file('namelist.input', 'DT_SN_COUNT_'+str(i+1)+'_DT', str(55))
-            util.replace_string_in_file('namelist.input', 'DT_WE_COUNT_'+str(i+1)+'_DT', str(33))
+            util.replace_string_in_file('namelist.input', 'DT_WE_COUNT_'+str(i+1)+'_DT', str(52))
             util.replace_string_in_file('namelist.input', 'DT_WE_COUNT_'+str(i+1)+'_DT', str(33))
             util.replace_string_in_file('namelist.input', 'DT_I_PARENT_START_'+str(i+1)+'_DT', str(18))
             util.replace_string_in_file('namelist.input', 'DT_J_PARENT_START_'+str(i+1)+'_DT', str(19))
