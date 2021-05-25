@@ -360,7 +360,7 @@ def sample_data(n):
     # Generate data points for each variable and return these to feature in namelist.input
     n_samples = n
     space = Space([Categorical([0,1,2,3,4,5,6,7,14,99], name='CU'),
-             Categorical([1,2,3,4,5,31,99], name='RA_LW'),
+             Categorical([1,3,4,5,31,99], name='RA_LW'),
              Categorical([1,2,3,4,5,99], name='RA_SW'),
              Categorical([1,2,3,4,5,6,7,8,9,10,99], name='PBL')])
     lhs = Lhs(criterion="maximin", iterations=10000)
