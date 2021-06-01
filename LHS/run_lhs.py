@@ -523,7 +523,7 @@ if __name__ == '__main__':
             # Copy the namelist.template file into the run directory and edit to include the user input and first sample points generated above
             create_namelist(samples[i])
             # Run wrf.exe
-            #_execute_WRF(8,DIR_WRF)
+            _execute_WRF(8,DIR_WRF)
             # Move the resultant files into netcdf and input folders
             move_files(i)
  
