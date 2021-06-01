@@ -58,10 +58,10 @@ from skopt.space import Space
 from skopt.sampler import Lhs
 from shutil import copyfile
 
-DIR_WRF='/opt/Containerized-Forecasting-Workflow'
-DIR_LHS='/opt/Containerized-Forecasting-Workflow/LHS'
-#DIR_WRF='/home/student/run'
-#DIR_LHS='/home/student/run/LHS'
+#DIR_WRF='/opt/Containerized-Forecasting-Workflow'
+#DIR_LHS='/opt/Containerized-Forecasting-Workflow/LHS'
+DIR_WRF='/home/student/run'
+DIR_LHS='/home/student/run/LHS'
 
 def main(argv):
     '''
