@@ -500,7 +500,7 @@ def move_files(n):
 
 if __name__ == '__main__':
     try:
-        runs = 4
+        runs = 50
 
         #Just testing functions at this stage
         #Use this once testing of each function complete
