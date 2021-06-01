@@ -500,6 +500,8 @@ def move_files(n):
 
 if __name__ == '__main__':
     try:
+        runs = 50
+
         #Just testing functions at this stage
         #Use this once testing of each function complete
         #main(sys.argv[1:])
@@ -514,9 +516,9 @@ if __name__ == '__main__':
 
         # Testing of move_files function complete
         # move_files(1)
-        samples=sample_data(4)
+        samples=sample_data(runs)
         # Do a loop here to do a WRF run per each LHS data set
-        for i in range(4):
+        for i in range(runs):
 
             # Copy the namelist.template file into the run directory and edit to include the user input and first sample points generated above
             create_namelist(samples[i])
