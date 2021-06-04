@@ -5,7 +5,8 @@ import os
 import math
 
 
-file = 'C:\\Users\\jhmil\\trit.d01.TS'
+#file = 'C:\\Users\\jhmil\\trit.d01.TS'
+file = '/home/student/run/trit.d01.TS'
 #reads file and delete the first irrelevant line of text
 with open(file,'r') as f:
     lines = f.readlines()
@@ -15,8 +16,8 @@ with open(file + ".out", 'w')as f:
     for line in lines:
         f.writelines(line)
 
-file2 = 'C:\\Users\\jhmil\\trit.d01.TS.out'
-
+#file2 = 'C:\\Users\\jhmil\\trit.d01.TS.out'
+file2 = '/home/student/run/trit.d01.TS.out'
 #loads u wind component to array
 xPoints = (np.loadtxt(file2)[:,7])
 #loads v wind componenet to array
@@ -36,8 +37,8 @@ print (windMagnitude)
 print (timeStep)
 
 #plot data
-plt.plot(timeStep, yPoints, 'o')
-plt.title("x-wind component")
+plt.plot(timeStep, windMagnitude, 'o')
+plt.title("Wind Magnitude")
 plt.xlabel("Time Step")
 plt.ylabel("Wind velocity ms-1")
 plt.show()
