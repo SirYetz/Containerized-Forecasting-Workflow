@@ -498,8 +498,7 @@ def move_files(n):
             os.rename(filename, new_name)
     return
 
-#if __name__ == '__main__':
-if __name__ == main(sys.argv[1:]):
+if __name__ == '__main__':
     try:
         runs = 50
 
