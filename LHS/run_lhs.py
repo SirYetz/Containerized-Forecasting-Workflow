@@ -399,7 +399,7 @@ def create_namelist(samples):
         util.replace_string_in_file('namelist.input', 'DT_END_MONTH_DT', '12')
         util.replace_string_in_file('namelist.input', 'DT_END_DAY_DT', '31')
         # Go for one hour
-        util.replace_string_in_file('namelist.input', 'DT_END_HOUR_DT', '01')
+        util.replace_string_in_file('namelist.input', 'DT_END_HOUR_DT', '02')
         util.replace_string_in_file('namelist.input', 'DT_END_MINUTES_DT', '00')
         util.replace_string_in_file('namelist.input', 'DT_END_SECONDS_DT', '00')
         util.replace_string_in_file('namelist.input', 'DT_MAX_DOM_DT', '1')
