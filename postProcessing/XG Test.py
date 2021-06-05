@@ -1,5 +1,5 @@
 from numpy import asarray, sqrt
-import numpy
+import numpy as np
 from numpy.lib import math
 from pandas import read_csv
 from pandas import DataFrame
@@ -67,17 +67,23 @@ def walk_forward_validation(data, n_test):
 	return error, test[:, -1], predictions
 
 # load the dataset
-series = read_csv('trit.d01.VV')
-series2 = read_csv('trit.d01.UU')
-values = series.values
-values2 = series2.values
+file2 = 'C:\\Users\\jhmil\\trit.d01.TS.out'
+xPoints = (np.loadtxt(file2)[:,7])
+yPoints = (np.loadtxt(file2)[:,8])
+windMagnitude = []
+for i in range(len(xPoints)):
+    u = xPoints[i]
+    v = yPoints[i]
+    magnitude = math.sqrt(u**2+v**2)
+    windMagnitude.append(magnitude)
+#series2 = read_csv('trit.d01.UU')
+#values = series.values
+#values2 = series2.values
 
 # transform the time series data into supervised learning
-vectors = sqrt(numpy.square(series)+numpy.square(series2))
-data = series_to_supervised(values, n_in=6)
-#ata2 = series_to_supervised(values2, n_in=6)
+data = series_to_supervised(windMagnitude, n_in=6)
 # evaluate
-mae, y, yhat = walk_forward_validation(data, 12)
+mae, y, yhat = walk_forward_validation(data, 50)
 #mae, y, yhat = walk_forward_validation(data2, 12)
 
 #vectors = sqrt(numpy.square(values)+numpy.square(values2))
