@@ -403,7 +403,7 @@ def create_namelist(samples):
         util.replace_string_in_file('namelist.input', 'DT_END_MINUTES_DT', '00')
         util.replace_string_in_file('namelist.input', 'DT_END_SECONDS_DT', '00')
         util.replace_string_in_file('namelist.input', 'DT_MAX_DOM_DT', '1')
-        util.replace_string_in_file('namelist.input', 'DT_INTERVAL_SECONDS', '10800')
+        util.replace_string_in_file('namelist.input', 'DT_INTERVAL_SECONDS', '600')
 
         dom=[27000,9000,3000,1000]
         for i in range(0,4):
@@ -500,7 +500,7 @@ def move_files(n):
 
 if __name__ == '__main__':
     try:
-        runs = 50
+        runs = 1
 
         #Just testing functions at this stage
         #Use this once testing of each function complete
