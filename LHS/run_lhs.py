@@ -385,7 +385,7 @@ def create_namelist(samples):
         ra_hw=samples[2]
         pbl=samples[3]
 
-        util.replace_string_in_file('namelist.input', 'DT_RUN_DAYS_DT', '01')
+        util.replace_string_in_file('namelist.input', 'DT_RUN_DAYS_DT', '07')
         util.replace_string_in_file('namelist.input', 'DT_RUN_HOURS_DT', '00')
         util.replace_string_in_file('namelist.input', 'DT_RUN_MINUTES_DT', '00')
         util.replace_string_in_file('namelist.input', 'DT_RUN_SECONDS_DT', '00')
