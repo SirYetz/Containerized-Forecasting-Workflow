@@ -6,10 +6,11 @@ import math
 import matplotlib.patches as mpatches
 import os, os.path
 import shutil
-
+from numpy.polynomial import Polynomial
 
 #print (len([name for name in os.listdir('C:\\Users\\jhmil\\tsout') ]))
 xPoints = []
+yPoints = []
 filenames = []
 directory = 'C:\\Users\\jhmil\\tsout'
 directory2='C:\\Users\\jhmil\\outfiles'
@@ -36,6 +37,8 @@ for r in filenames:
             file2arr = np.loadtxt(file2)
             timmy = file2arr[:,7]
             xPoints.insert(count, timmy)
+            timmy = file2arr[:,8]
+            yPoints.insert(count, timmy)
             count += 1
         elif os.path.getsize(file2)==0:
             os.remove(file2)
@@ -44,9 +47,7 @@ for r in filenames:
         os.remove('C:\\Users\\jhmil\\outfiles\\'+r+'.out')
 #print(len(xPoints))    
 
-
 file = 'C:\\Users\\jhmil\\TS Files\\5 runs\\trit.d01_5run.TS'
-data = 'C:\\Users\\jhmil\\clientdata.txt'
 #file = '/home/student/run/trit.d01.TS'
 #data = '/home/student/Containerized-Forecasting-Workflow/LHS/clientdata.txt'
 #reads file and delete the first irrelevant line of text
@@ -68,17 +69,24 @@ data = 'C:\\Users\\jhmil\\clientdata.txt'
 clientData = (np.loadtxt(data)) 
 #This is neccessary to ensure the predicted wind speed and observed have the same time steps
 xWindArray =[]
-xWindArray2 =[]
+#xWindArray2 =[]
+yWindArray = []
+#yWindArray2 = []
 for r in range(len(xPoints)):
     xWindArray2 =[]
+    yWindArray2 = []
     xWind = 0
+    yWind = 0
     windTimeStep = 0
     windTimeStep = 24/len(xPoints[r])
     for i in range(len(xPoints[r])):
         xWindArray2.append(xWind)
+        yWindArray2.append(yWind)
         xWind = xWind+windTimeStep
-    print(len(xWindArray2))
+        yWind = yWind+windTimeStep
+    print(len(yWindArray2))
     xWindArray.insert(r, xWindArray2)
+    yWindArray.insert(r, yWindArray2)
 #As per previous comment
 clientTimeStep = 24/len(clientData)
 xClient = 0
@@ -90,15 +98,31 @@ for i in range(len(clientData)):
 #print(xWindArray)
 #print(xPoints)
 print(len(xWindArray[0]))
-#plot data
+print(len(yWindArray[0]))
 
-for r in range(len(xPoints)):
-    plt.plot(xWindArray[r], xPoints[r])
-plt.plot(xClientArray, clientData,"red")
-plt.title("Wind Magnitude")
-plt.xlabel("Time (hr)")
-plt.ylabel("Wind velocity (ms-1)")
-red_patch = mpatches.Patch(color='red', label='Client Data')
-blue_patch = mpatches.Patch(color='blue', label='Predicted Wind Speed')
-plt.legend(handles=[red_patch, blue_patch])
+windMagnitude = []
+lbf = []
+lbfi = []
+u = []
+v = []
+for i in range(len(xPoints)):
+    windMagnitude2 = []
+    u = xPoints[i]
+    v = yPoints[i]
+    for j in range(len(xPoints[i])):
+        magnitude = math.sqrt(u[j]**2+v[j]**2)
+        windMagnitude2.append(magnitude)
+        #lbfi = np.polyfit(u.ravel(),v.ravel(),2)
+    windMagnitude.insert(i, windMagnitude2)
+    #lbf.insert(i,lbfi)
+
+for i in range(len(xWindArray)):
+    p = Polynomial.fit(xWindArray[i],windMagnitude[i],4)
+    plt.plot(xWindArray[i], windMagnitude[i])
+    plt.plot(xClientArray, clientData,"red")
+    plt.plot(*p.linspace())
+    plt.title("Wind Magnitude")
+    plt.xlabel("Time (hr)")
+    plt.ylabel("Wind velocity (ms-1)")
+    plt.figure(i)
 plt.show()
