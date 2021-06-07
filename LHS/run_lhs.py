@@ -385,7 +385,7 @@ def create_namelist(samples):
         ra_hw=samples[2]
         pbl=samples[3]
 
-        util.replace_string_in_file('namelist.input', 'DT_RUN_DAYS_DT', '01')
+        util.replace_string_in_file('namelist.input', 'DT_RUN_DAYS_DT', '00')
         util.replace_string_in_file('namelist.input', 'DT_RUN_HOURS_DT', '00')
         util.replace_string_in_file('namelist.input', 'DT_RUN_MINUTES_DT', '00')
         util.replace_string_in_file('namelist.input', 'DT_RUN_SECONDS_DT', '00')
@@ -399,7 +399,7 @@ def create_namelist(samples):
         util.replace_string_in_file('namelist.input', 'DT_END_MONTH_DT', '12')
         util.replace_string_in_file('namelist.input', 'DT_END_DAY_DT', '31')
         # Go for one hour
-        util.replace_string_in_file('namelist.input', 'DT_END_HOUR_DT', '04')
+        util.replace_string_in_file('namelist.input', 'DT_END_HOUR_DT', '01')
         util.replace_string_in_file('namelist.input', 'DT_END_MINUTES_DT', '00')
         util.replace_string_in_file('namelist.input', 'DT_END_SECONDS_DT', '00')
         util.replace_string_in_file('namelist.input', 'DT_MAX_DOM_DT', '1')
@@ -487,6 +487,7 @@ def move_files(n):
     # Rename files to reflect the sample  number
     for filename in glob.glob(DIR_WRF + '/*' ):
         pattern_wrf = r'(.*)(wrfout)_d(\d{1,2})(.*)'
+        pattern_trit = r'(.*)(trit).d(\d{1,2})(.TS)'
         pattern_namelist = r'(.*)(namelist.input)$'
         if re.search(pattern_wrf,filename):
             replace = r'\1'+'LHS/netcdf/'+'sample_' + str(n) + '_d' + r'\3'
@@ -496,11 +497,16 @@ def move_files(n):
             replace = r'\1'+'LHS/inputs/'+'sample_' + str(n)
             new_name = re.sub(pattern_namelist, replace, filename) 
             os.rename(filename, new_name)
+        elif re.search(pattern_trit,filename):
+            replace = r'\1'+'LHS/tsout/'+'trit_' + str(n)
+            new_name = re.sub(pattern_trit, replace, filename) 
+            os.rename(filename, new_name)
     return
+
 
 if __name__ == '__main__':
     try:
-        runs = 5 
+        runs = 2 
 
         #Just testing functions at this stage
         #Use this once testing of each function complete
@@ -513,6 +519,9 @@ if __name__ == '__main__':
 
         if not os.path.exists(DIR_LHS+'/inputs'):
             os.mkdir(DIR_LHS+'/inputs')
+        
+        if not os.path.exists(DIR_LHS+'/tsout'):
+            os.mkdir(DIR_LHS+'/tsout')
 
         # Testing of move_files function complete
         # move_files(1)
