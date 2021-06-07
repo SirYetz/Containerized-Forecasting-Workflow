@@ -385,8 +385,8 @@ def create_namelist(samples):
         ra_hw=samples[2]
         pbl=samples[3]
 
-        util.replace_string_in_file('namelist.input', 'DT_RUN_DAYS_DT', '00')
-        util.replace_string_in_file('namelist.input', 'DT_RUN_HOURS_DT', '01')
+        util.replace_string_in_file('namelist.input', 'DT_RUN_DAYS_DT', '01')
+        util.replace_string_in_file('namelist.input', 'DT_RUN_HOURS_DT', '00')
         util.replace_string_in_file('namelist.input', 'DT_RUN_MINUTES_DT', '00')
         util.replace_string_in_file('namelist.input', 'DT_RUN_SECONDS_DT', '00')
         util.replace_string_in_file('namelist.input', 'DT_START_YEAR_DT', '2011')
@@ -506,7 +506,7 @@ def move_files(n):
 
 if __name__ == '__main__':
     try:
-        runs = 10 
+        runs = 5 
 
         #Just testing functions at this stage
         #Use this once testing of each function complete
