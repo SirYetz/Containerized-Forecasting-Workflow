@@ -118,11 +118,15 @@ for i in range(len(xPoints)):
 
 for i in range(len(xWindArray)):
     p = Polynomial.fit(xWindArray[i],windMagnitude[i],4)
-    plt.plot(xWindArray[i], windMagnitude[i])
+    plt.plot(xWindArray[i], windMagnitude[i], 'blue')
     plt.plot(xClientArray, clientData,"red")
-    plt.plot(*p.linspace())
+    plt.plot(*p.linspace(), 'cyan')
     plt.title("Wind Magnitude")
     plt.xlabel("Time (hr)")
     plt.ylabel("Wind velocity (ms-1)")
+    red_patch = mpatches.Patch(color='red', label='Observed Data')
+    blue_patch = mpatches.Patch(color='blue', label='Model Prediction')
+    cyan_patch = mpatches.Patch(color='cyan', label='Line of Best Fit')
+    plt.legend(handles=[red_patch, blue_patch, cyan_patch])
     plt.figure(i)
 plt.show()
