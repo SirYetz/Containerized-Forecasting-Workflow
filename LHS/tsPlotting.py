@@ -8,6 +8,8 @@ import os, os.path
 import shutil
 from numpy.polynomial import Polynomial
 
+#Amend this depending on the length of the WRF run in hours
+RUN_LENGTH = 24
 #print (len([name for name in os.listdir('C:\\Users\\jhmil\\tsout') ]))
 xPoints = []
 yPoints = []
@@ -78,17 +80,17 @@ for r in range(len(xPoints)):
     xWind = 0
     yWind = 0
     windTimeStep = 0
-    windTimeStep = 24/len(xPoints[r])
+    windTimeStep =  RUN_LENGTH/len(xPoints[r])
     for i in range(len(xPoints[r])):
         xWindArray2.append(xWind)
         yWindArray2.append(yWind)
         xWind = xWind+windTimeStep
         yWind = yWind+windTimeStep
-    print(len(yWindArray2))
+    #print(len(yWindArray2))
     xWindArray.insert(r, xWindArray2)
     yWindArray.insert(r, yWindArray2)
 #As per previous comment
-clientTimeStep = 24/len(clientData)
+clientTimeStep = RUN_LENGTH/len(clientData)
 xClient = 0
 xClientArray = []
 for i in range(len(clientData)):
@@ -97,12 +99,10 @@ for i in range(len(clientData)):
 #print(len(xWindArray))
 #print(xWindArray)
 #print(xPoints)
-print(len(xWindArray[0]))
-print(len(yWindArray[0]))
+#print(len(xWindArray[0]))
+#print(len(yWindArray[0]))
 
 windMagnitude = []
-lbf = []
-lbfi = []
 u = []
 v = []
 for i in range(len(xPoints)):
@@ -112,10 +112,8 @@ for i in range(len(xPoints)):
     for j in range(len(xPoints[i])):
         magnitude = math.sqrt(u[j]**2+v[j]**2)
         windMagnitude2.append(magnitude)
-        #lbfi = np.polyfit(u.ravel(),v.ravel(),2)
     windMagnitude.insert(i, windMagnitude2)
-    #lbf.insert(i,lbfi)
-
+  
 for i in range(len(xWindArray)):
     p = Polynomial.fit(xWindArray[i],windMagnitude[i],4)
     plt.plot(xWindArray[i], windMagnitude[i], 'blue')
